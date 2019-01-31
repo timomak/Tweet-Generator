@@ -8,6 +8,25 @@ def open_file(file):
             array.remove(string)
     return array
 
+def dict_histogram(array):
+    histogram = {}
+
+    for word in array:
+		if word in histogram.keys():
+			histogram[word] += 1
+		else:
+			histogram[word] = 1
+    return histogram
+
+def tuple_histogram(histogram):
+    tuple_histogram = []
+    for array in histogram:
+        tuple_histogram.append(tuple(array))
+    return tuple_histogram
+
+
+
+
 # Works properly
 def histogram(array):
     histogram = []
@@ -42,8 +61,8 @@ def frequency(word, histogram):
     if found == False:
         return 0
 
-
-print (open_file('hello'))
+print tuple_histogram(histogram(open_file('hello')))
+# print (open_file('hello'))
 # print histogram(array)
 # print unique_words(histogram(array))
 # print frequency("one", histogram(array))
