@@ -18,31 +18,35 @@ def dict_histogram(array):
 			histogram[word] = 1
     return histogram
 
-def tuple_histogram(histogram):
-    tuple_histogram = []
-    for array in histogram:
-        tuple_histogram.append(tuple(array))
-    return tuple_histogram
+def tuple_histogram(array):
+    list = []
+    for word in array:
+        found = False
+        for inner_tuple in list:
+            if word == inner_tuple[0]:
+                count = inner_tuple[1] + 1
+                list.remove(inner_tuple)
+                list.append((word, count))
+                found = True
+                break
+        if not found:
+            list.append((word, 1))
+    return list
 
 
-
-
-# Works properly
 def histogram(array):
-    histogram = []
-    for index in range(len(array)):
-        found_word = False
-        if histogram:
-            for counter in range(len(histogram)):
-                if histogram[counter][0] == array[index]:
-                    histogram[counter][1] += 1
-                    found_word = True
-                    break
-            if found_word == False:
-                histogram.append([array[index], 1])
-        else:
-            histogram.append([array[index], 1])
-    return histogram
+    list = []
+    for word in array:
+        found = False
+        for inner_list in list:
+            if word == inner_list[0]:
+                inner_list[1] += 1
+                found = True
+                break
+        if not found:
+            list.append([word, 1])
+    return list
+
 
 def unique_words(histogram):
     array = []
@@ -61,9 +65,7 @@ def frequency(word, histogram):
     if found == False:
         return 0
 
-print tuple_histogram(histogram(open_file('hello')))
-# print (open_file('hello'))
-# print histogram(array)
-# print unique_words(histogram(array))
-# print frequency("one", histogram(array))
-# print frequency("four", histogram(array))
+
+# print open_file('text.txt')
+# print histogram(open_file('text.txt'))
+# print tuple_histogram(open_file('text.txt'))
