@@ -18,6 +18,12 @@ def word_selection(histogram):
         if cumulative_prob >= random_num:
             return value[0]
 
+def create_sentence(histogram):
+    newSentenceArray = []
+    for _ in range(random.randint(10, 30)):
+        newSentenceArray.append(word_selection(histogram))
+    return " ".join(newSentenceArray) + "."
+
 def create_probability_dict(histogram, loop=10000):
     prob_dict = {}
 
@@ -29,12 +35,17 @@ def create_probability_dict(histogram, loop=10000):
 
     return prob_dict
 
+
+
 if __name__ == '__main__':
     parameters = sys.argv[1:]
 
-    # List of lists
-    temp_histogram = histogram.histogram(histogram.open_file(parameters[0]))
-
-    loops = int(parameters[1])
-    # Return a dict with words and the number of times it was called
-    print create_probability_dict(temp_histogram, loops)
+    # # List of lists
+    # temp_histogram = histogram.histogram(histogram.open_file(parameters[0]))
+    #
+    # loops = 0
+    # if len(parameters) > 1:
+    #     loops = int(parameters[1])
+    # # Return a dict with words and the number of times it was called
+    # # print create_probability_dict(temp_histogram, loops)
+    # create_sentence(histogram=temp_histogram)
