@@ -11,7 +11,7 @@ def open_file(file):
     array = []
     with open(file, 'r') as f:
 	       file_content = f.read()
-	       array = [line.replace(",", "").replace(".", "") for line in file_content.lower().split()]
+	       array = [line.replace(",", "").replace(".", "").replace("\"") for line in file_content.lower().split()]
     for string in array:
         if string == '':
             array.remove(string)
