@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-        return MarkovChain_forHeroku.generate_sentence()
+    return MarkovChain_forHeroku.generate_sentence()
 #
 # def open_file(file):
 #     array = []
