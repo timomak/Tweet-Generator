@@ -60,6 +60,8 @@ class DictogramTest(unittest.TestCase):
         assert histogram.frequency('fish') == 8
         assert histogram.frequency('food') == 5
         # Verify count of distinct word types
+        print("histogram types: ", histogram.types)
+
         assert histogram.types == 6
         # Verify total count of all word tokens
         assert histogram.tokens == 8 + 14

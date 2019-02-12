@@ -20,10 +20,21 @@ class Dictogram(dict):
     def add_count(self, word, count=1):
         """Increase frequency count of given word by given count amount."""
         # TODO: Increase word frequency by count
+        if word in self.keys():
+            self[word] += count
+            self.tokens += count
+        else:
+            self[word] = count
+            self.types += 1
+            self.tokens += count
 
     def frequency(self, word):
         """Return frequency count of given word, or 0 if word is not found."""
         # TODO: Retrieve word frequency count
+        if word in self.keys():
+            return self[word]
+        else:
+            return 0
 
 
 def print_histogram(word_list):
@@ -36,7 +47,6 @@ def print_histogram(word_list):
         freq = histogram.frequency(word)
         print('{!r} occurs {} times'.format(word, freq))
     print()
-
 
 def main():
     import sys
