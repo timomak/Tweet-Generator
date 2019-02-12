@@ -10,11 +10,19 @@ def load(text):
    # Converts file to string of lower case words
    words = file.read()
    # Replaces punctuation with nothing
-   words = words.replace(string.punctuation, "").replace(",", "").replace(".", "").replace("\"", "").replace("?", "").replace("!", "")
+   words = words.replace(string.punctuation, "").replace(",", "").replace(".", "").replace("\"", "").replace("?", "").replace("!", "").replace(";", "").replace(":", "")
 
    # Creates list of words from string
    wordlist = [word for word in words.split()]
+
+
+   for item in wordlist:
+       if item == '':
+           wordlist.remove(item)
+
    file.close()
+
+
    return wordlist
 
 
