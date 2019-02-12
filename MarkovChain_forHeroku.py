@@ -38,9 +38,7 @@ def makeMarkovDict(text_file):
     index = 0
     """ Fill up the markov dict second layer """
     for word in words_list:
-        if len(words_list) == index + 1:
-            print "Done sorting"
-        else:
+        if len(words_list) > index + 1:
             following_word = words_list[index + 1] # Get the word after the current one.
             if following_word in markov[word].keys():
                 markov[word][following_word] += 1
