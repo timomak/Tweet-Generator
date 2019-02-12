@@ -99,7 +99,3 @@ def word_selection(dictionary):
         cumulative_prob += float(dictionary[value]) / float(total_sum)
         if cumulative_prob >= random_num:
             return value
-
-
-print generate_sentence()
-# print word_selection()
