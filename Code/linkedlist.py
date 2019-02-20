@@ -134,32 +134,42 @@ class LinkedList(object):
         # TODO: Update previous node to skip around node with matching data
         # TODO: Otherwise raise error to tell user that delete has failed
         # Hint: raise ValueError('Item not found: {}'.format(item))
-        can_continue = True
-        if self.head is None:
-            ValueError('Item not found: {}'.format(item))
-        elif self.head.data is not item:
-            if self.head.next is not None:
-                next = self.head.next
-                if next.data == item:
-                    self.head.next = next.next
-                    # Need to delete object next
-                    next = None
-                while can_continue is True:
-                    if next.next is not None:
-                        if next.next.data is not item:
-                            next = next.next
-                        else:
-                            if next.next.next is not None:
-                                next.next = next.next.next
-                            else:
-                                next.next = None
-                            can_continue = False
-                    else:
-                        ValueError('Item not found: {}'.format(item))
+
+        if self.head is not None:
+            if self.head.data is item:
+                if self.head.next is not None:
+                    self.head = self.head.next
+                else:
+                    self.head = None
             else:
-                ValueError('Item not found: {}'.format(item))
+                """ If the item is not the Head but it has a head"""
+                if self.head.next is not None:
+                    next_item = self.head.next
+                    if next_item is item:
+                        if self.head.next.next is not None:
+                            self.head.next = self.head.next.next
+                        else:
+                            self.head.next = None
+                    else:
+                        """ If it's not either the first or second item """
+                        found = False
+                        while found is False:
+                            if next_item.next == item:
+                                if next_item.next.next is not None:
+                                    next_item.next = next_item.next.next
+                                else:
+                                    next_item.next = None
+                                found = True
+                                break
+                            else:
+                                if next_item.next is not None:
+                                    next_item = next_item.next
+                                else:
+                                    ValueError('Item not found: {}'.format(item))
+                                    break
         else:
-            self.head = self.head.next
+            print "stops at the beginning"
+            ValueError('Item not found: {}'.format(item))
 
 def test_linked_list():
     ll = LinkedList()
@@ -189,7 +199,7 @@ def test_linked_list():
         print('length: {}'.format(ll.length()))
 
     # After implementing Prepend
-    prepend_implemented = True
+    prepend_implemented = False
     if prepend_implemented:
         for item in ['3', '2', '1']:
             print('prepend({!r})'.format(item))
@@ -198,7 +208,7 @@ def test_linked_list():
             print('length: {}'.format(ll.length()))
 
     # After implementing Find
-    find_implemented = True
+    find_implemented = False
     if find_implemented:
         for item in ['A', '2', 'Z', 'B', '1', 'X']:
             print('find({!r})'.format(item))
@@ -210,12 +220,13 @@ def test_linked_list():
     # After implementing delete
     delete_implemented = True
     if delete_implemented:
-        for item in ['A', '2', 'Z', 'B', '1', 'X']:
+        for item in ['A']:
             print('delete({!r})'.format(item))
-            if ll.delete(item):
-                print('deleted: {!r}'.format(item))
-            else:
-                print('could not delete: {!r}'.format(item))
+            ll.delete(item)
+            #     print('deleted: {!r}'.format(item))
+            # else:
+            #     print('could not delete: {!r}'.format(item))
+            print('list: {}'.format(ll))
 
 if __name__ == '__main__':
     test_linked_list()
