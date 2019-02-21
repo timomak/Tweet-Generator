@@ -153,6 +153,8 @@ class LinkedList(object):
                             if next.next.next is not None:
                                 next.next = next.next.next
                             else:
+                                print "deleting last item and setting new tail"
+                                self.tail = next
                                 next.next = None
                             can_continue = False
                     else:
@@ -211,13 +213,14 @@ def test_linked_list():
     # After implementing delete
     delete_implemented = True
     if delete_implemented:
-        for item in ['A', '3','1','B','C','2','X']:
+        for item in ['B','C','A']:
             print('delete({!r})'.format(item))
             ll.delete(item)
             #     print('deleted: {!r}'.format(item))
             # else:
             #     print('could not delete: {!r}'.format(item))
             print('list: {}'.format(ll))
+            print('tail: {}'.format(ll.tail))
 
 if __name__ == '__main__':
     test_linked_list()
