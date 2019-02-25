@@ -59,15 +59,16 @@ class LinkedList(object):
         count = 0
         can_continue = True
         # checking if there's any items
-        if self.head.next is not None:
+        if self.head is not None:
             count += 1
-            next = self.head.next
-            while can_continue is True:
-                count += 1
-                if next.next is not None:
-                    next = next.next
-                else:
-                    can_continue = False
+            if self.head.next is not None:
+                next = self.head.next
+                while can_continue is True:
+                    count += 1
+                    if next.next is not None:
+                        next = next.next
+                    else:
+                        can_continue = False
         return count
 
     def append(self, item):
@@ -93,6 +94,7 @@ class LinkedList(object):
         new_node = Node(data=item)
         if self.head is None:
             self.head = new_node
+            self.tail = new_node
         else:
             new_node.next = self.head
             self.head = new_node
@@ -103,6 +105,8 @@ class LinkedList(object):
         TODO: Worst case running time: O(???) Why and under what conditions?"""
         # TODO: Loop through all nodes to find item where quality(item) is True
         # TODO: Check if node's data satisfies given quality function
+
+        # This one works...Probably not the way it's supposed to tho.
         can_continue = True
         if self.head is None:
             return False
@@ -136,14 +140,17 @@ class LinkedList(object):
         # Hint: raise ValueError('Item not found: {}'.format(item))
         can_continue = True
         if self.head is None:
-            raise ValueError('Item not found: {}'.format(item))
+            raise ValueError('List is empty: {}'.format(item))
         elif self.head.data is not item:
             if self.head.next is not None:
                 next = self.head.next
-                if next.data == item:
-                    self.head.next = next.next
-                    # Need to delete object next
-                    next = None
+                if next.data is item:
+                    if next.next is not None:
+                        self.head.next = next.next
+                        self.tail = self.head.next
+                    else:
+                        self.head.next = None
+                        self.tail = self.head
                     return
                 while can_continue is True:
                     if next.next is not None:
@@ -162,7 +169,11 @@ class LinkedList(object):
             else:
                 raise ValueError('Item not found: {}'.format(item))
         else:
-            self.head = self.head.next
+            if self.head.next is not None:
+                self.head = self.head.next
+            else:
+                self.head = None
+                self.tail = None
 
 def test_linked_list():
     ll = LinkedList()
@@ -173,6 +184,7 @@ def test_linked_list():
         print('append({!r})'.format(item))
         ll.append(item)
         print('list: {}'.format(ll))
+        print('length: {}'.format(ll.length()))
 
     print('head: {}'.format(ll.head))
     print('tail: {}'.format(ll.tail))
@@ -186,13 +198,15 @@ def test_linked_list():
             print('delete({!r})'.format(item))
             ll.delete(item)
             print('list: {}'.format(ll))
+            print('head: {}'.format(ll.head))
+            print('tail: {}'.format(ll.tail))
 
         print('head: {}'.format(ll.head))
         print('tail: {}'.format(ll.tail))
         print('length: {}'.format(ll.length()))
 
     # After implementing Prepend
-    prepend_implemented = True
+    prepend_implemented = False
     if prepend_implemented:
         for item in ['3', '2', '1']:
             print('prepend({!r})'.format(item))
@@ -201,7 +215,7 @@ def test_linked_list():
             print('length: {}'.format(ll.length()))
 
     # After implementing Find
-    find_implemented = True
+    find_implemented = False
     if find_implemented:
         for item in ['A', '2', 'Z', 'B', '1', 'X']:
             print('find({!r})'.format(item))
@@ -211,7 +225,7 @@ def test_linked_list():
                 print('not found: {!r}'.format(item))
 
     # After implementing delete
-    delete_implemented = True
+    delete_implemented = False
     if delete_implemented:
         for item in ['B','C','A']:
             print('delete({!r})'.format(item))
