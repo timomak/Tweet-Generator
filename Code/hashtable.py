@@ -9,6 +9,7 @@ class HashTable(object):
         """Initialize this hash table with the given initial size."""
         # Create a new list (used as fixed-size array) of empty linked lists
         self.buckets = [LinkedList() for _ in range(init_size)]
+        self.size = 0
 
     def __str__(self):
         """Return a formatted string representation of this hash table."""
@@ -60,10 +61,11 @@ class HashTable(object):
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Loop through all buckets
         # TODO: Count number of key-value entries in each bucket
-        count = 0
-        for bucket in self.buckets:
-            count += 1
-        return count
+        # count = 0
+        # for bucket in self.buckets:
+        #     count += 1
+        # return count
+        return self.size
 
 
 
@@ -78,7 +80,16 @@ class HashTable(object):
         #         if temp_key is key:
         #             return True
         # return False
+        index = self._bucket_index(key) # tells us where in the list our bucket is located
 
+        bucket = self.buckets[index] # selects our current bucket
+
+        entry = bucket.find(lambda key_value: key_value[0] == key) # If true, you return the value associated with the key
+
+        if entry: #found
+            return True
+        else:
+            return False
 
 
 
@@ -118,10 +129,19 @@ class HashTable(object):
         # TODO: If found, update value associated with given key
         # TODO: Otherwise, insert given key-value entry into bucket
 
+        index = self._bucket_index(key)
+        bucket = self.buckets[index]
 
+        entry = bucket.find(lambda key_value: key_value[0] == key)
 
+        if entry:
+            bucket.delete(entry)
+            self.size -= 1
 
+        entry = (key,value)
 
+        bucket.append(entry)
+        self.size += 1
         # if self.contains(key=key) == True:
         #     for bucket in self.buckets:
         #         for temp_key, temp_value in bucket.items():
@@ -148,7 +168,16 @@ class HashTable(object):
         #         count += 1
         # else:
         #     KeyError('Key not found: {}'.format(key))
+        index = self._bucket_index(key)
+        bucket = self.buckets[index]
 
+        entry = bucket.find(lambda key_value: key_value[0] == key)
+
+        if entry:
+            bucket.delete(entry)
+            self.size -= 1
+        else:
+            KeyError('Key not found: {}'.format(key))
 
 def test_hash_table():
     ht = HashTable()
@@ -169,7 +198,7 @@ def test_hash_table():
     print('length: {}'.format(ht.length()))
 
     # Enable this after implementing delete method
-    delete_implemented = False
+    delete_implemented = True
     if delete_implemented:
         print('\nTesting delete:')
         for key in ['I', 'V', 'X']:
