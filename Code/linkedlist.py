@@ -116,38 +116,35 @@ class LinkedList(object):
         # TODO: Check if node's data satisfies given quality function
 
         # This one works...Probably not the way it's supposed to tho.
-        can_continue = True
-        if self.head is None:
-            return False
-        elif self.head.data is not quality:
-            if self.head.next is not None:
-                if self.head.next.data == quality:
-                    return True
-                next = self.head.next
-                while can_continue is True:
-                    if next.next is not None:
-                        if next.next.data is not quality:
-                            next = next.next
-                        else:
-                            return True
-                            can_continue = False
-                    else:
-                        return False
-            else:
-                return False
-        else:
-            return True
+        # can_continue = True
+        # if self.head is None:
+        #     return False
+        # elif self.head.data is not quality:
+        #     if self.head.next is not None:
+        #         if self.head.next.data == quality:
+        #             return True
+        #         next = self.head.next
+        #         while can_continue is True:
+        #             if next.next is not None:
+        #                 if next.next.data is not quality:
+        #                     next = next.next
+        #                 else:
+        #                     return True
+        #                     can_continue = False
+        #             else:
+        #                 return False
+        #     else:
+        #         return False
+        # else:
+        #     return True
 
-        # if quality == self.head.data: # Check if the head node's data is what we are looking for
-        #   return self.head.data # if it is return it and break the function
-        # if quality == self.tail.data: # Same as above but checking tail pointer
-        #   return self.tail.data #return tail's data
-        # cur_node = self.head  # get first node in list
-        # while cur_node is not None: # loop through list while the current node isn't None
-        #   if quality == cur_node.data:  # Check if cur_node's value is what we want
-        #     return cur_node.data
-        #   cur_node = cur_node.next  # Grab the next node and keep looping
-        # return None # value wasnt in list, return nothing
+        node = self.head
+        while node is not None:
+            if quality(node.data):
+                return node.data
+            else:
+                node = node.next
+        return None
 
 
     def delete(self, item):
