@@ -49,6 +49,8 @@ class HashTable(object):
         """Return a list of all items (key-value pairs) in this hash table.
         TODO: Running time: O(???) Why and under what conditions?"""
         # Collect all pairs of key-value entries in each bucket
+
+        all_items = [] # [(key, value), (key, value)]
         for bucket in self.buckets:
             all_items.extend(bucket.items())
         return all_items
@@ -64,17 +66,20 @@ class HashTable(object):
         return count
 
 
+
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Find bucket where given key belongs
         # TODO: Check if key-value entry exists in bucket
 
-        for bucket in self.buckets:
-            for temp_key, value in bucket.items():
-                if temp_key is key:
-                    return True
-        return False
+        # for bucket in self.buckets:
+        #     for temp_key, value in bucket.items():
+        #         if temp_key is key:
+        #             return True
+        # return False
+
+
 
 
     def get(self, key):
@@ -85,13 +90,25 @@ class HashTable(object):
         # TODO: If found, return value associated with given key
         # TODO: Otherwise, raise error to tell user get failed
         # Hint: raise KeyError('Key not found: {}'.format(key))
-        if self.buckets is not None:
-            for bucket in self.buckets:
-                for temp_key, value in bucket.items():
-                    if temp_key is key:
-                        return (key, value)
+
+        index = self._bucket_index(key) # tells us where in the list our bucket is located
+
+        bucket = self.buckets[index] # selects our current bucket
+
+        entry = bucket.find(lambda key_value: key_value[0] == key) # If true, you return the value associated with the key
+
+        if entry: #found
+            return entry[1]
+
         else:
-            KeyError('Empty: {}'.format(key))
+            KeyError('Key not found: {}'.format(key))
+        # if self.buckets is not None:
+        #     for bucket in self.buckets:
+        #         for temp_key, value in bucket.items():
+        #             if temp_key is key:
+        #                 return (key, value)
+        # else:
+        #     KeyError('Empty: {}'.format(key))
 
     def set(self, key, value):
         """Insert or update the given key with its associated value.
@@ -100,13 +117,13 @@ class HashTable(object):
         # TODO: Check if key-value entry exists in bucket
         # TODO: If found, update value associated with given key
         # TODO: Otherwise, insert given key-value entry into bucket
-        if self.contains(key=key) == True:
-            for bucket in self.buckets:
-                for temp_key, temp_value in bucket.items():
-                    if temp_key == key:
-                        temp_value = value
-        else:
-            self.buckets.append((key, value))
+        # if self.contains(key=key) == True:
+        #     for bucket in self.buckets:
+        #         for temp_key, temp_value in bucket.items():
+        #             if temp_key == key:
+        #                 temp_value = value
+        # else:
+        #     self.buckets.append((key, value))
 
 
     def delete(self, key):
@@ -117,15 +134,15 @@ class HashTable(object):
         # TODO: If found, delete entry associated with given key
         # TODO: Otherwise, raise error to tell user delete failed
         # Hint: raise KeyError('Key not found: {}'.format(key))
-        if self.contains(key=key) == True:
-            count = 0
-            for bucket in self.buckets:
-                for temp_key, value in bucket.items():
-                    if temp_key == key:
-                        self.buckets.pop(count)
-                count += 1
-        else:
-            KeyError('Key not found: {}'.format(key))
+        # if self.contains(key=key) == True:
+        #     count = 0
+        #     for bucket in self.buckets:
+        #         for temp_key, value in bucket.items():
+        #             if temp_key == key:
+        #                 self.buckets.pop(count)
+        #         count += 1
+        # else:
+        #     KeyError('Key not found: {}'.format(key))
 
 
 def test_hash_table():

@@ -48,6 +48,15 @@ class LinkedList(object):
         # Now list contains items from all nodes
         return items  # O(1) time to return list
 
+    def iterate(self):
+        """Returns all items within the list"""
+        new_list = []
+        node = self.head
+        while node is not None:
+            new_list.append(node.data)
+            node = node.next
+        return new_list
+
     def is_empty(self):
         """Return a boolean indicating whether this linked list is empty."""
         return self.head is None
@@ -129,6 +138,17 @@ class LinkedList(object):
         else:
             return True
 
+        # if quality == self.head.data: # Check if the head node's data is what we are looking for
+        #   return self.head.data # if it is return it and break the function
+        # if quality == self.tail.data: # Same as above but checking tail pointer
+        #   return self.tail.data #return tail's data
+        # cur_node = self.head  # get first node in list
+        # while cur_node is not None: # loop through list while the current node isn't None
+        #   if quality == cur_node.data:  # Check if cur_node's value is what we want
+        #     return cur_node.data
+        #   cur_node = cur_node.next  # Grab the next node and keep looping
+        # return None # value wasnt in list, return nothing
+
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
@@ -189,33 +209,35 @@ def test_linked_list():
     print('head: {}'.format(ll.head))
     print('tail: {}'.format(ll.tail))
     print('length: {}'.format(ll.length()))
+    print('iterate: {}'.format(ll.iterate()))
+    print('items: {}'.format(ll.items()))
 
-    # Enable this after implementing delete method
-    delete_implemented = False
-    if delete_implemented:
-        print('\nTesting delete:')
-        for item in ['B', 'C', 'A']:
-            print('delete({!r})'.format(item))
-            ll.delete(item)
-            print('list: {}'.format(ll))
-            print('head: {}'.format(ll.head))
-            print('tail: {}'.format(ll.tail))
-
-        print('head: {}'.format(ll.head))
-        print('tail: {}'.format(ll.tail))
-        print('length: {}'.format(ll.length()))
-
-    # After implementing Prepend
-    prepend_implemented = False
-    if prepend_implemented:
-        for item in ['3', '2', '1']:
-            print('prepend({!r})'.format(item))
-            ll.prepend(item)
-            print('list: {}'.format(ll))
-            print('length: {}'.format(ll.length()))
-
+    # # Enable this after implementing delete method
+    # delete_implemented = False
+    # if delete_implemented:
+    #     print('\nTesting delete:')
+    #     for item in ['B', 'C', 'A']:
+    #         print('delete({!r})'.format(item))
+    #         ll.delete(item)
+    #         print('list: {}'.format(ll))
+    #         print('head: {}'.format(ll.head))
+    #         print('tail: {}'.format(ll.tail))
+    #
+    #     print('head: {}'.format(ll.head))
+    #     print('tail: {}'.format(ll.tail))
+    #     print('length: {}'.format(ll.length()))
+    #
+    # # After implementing Prepend
+    # prepend_implemented = False
+    # if prepend_implemented:
+    #     for item in ['3', '2', '1']:
+    #         print('prepend({!r})'.format(item))
+    #         ll.prepend(item)
+    #         print('list: {}'.format(ll))
+    #         print('length: {}'.format(ll.length()))
+    #
     # After implementing Find
-    find_implemented = False
+    find_implemented = True
     if find_implemented:
         for item in ['A', '2', 'Z', 'B', '1', 'X']:
             print('find({!r})'.format(item))
@@ -223,18 +245,19 @@ def test_linked_list():
                 print('found: {!r}'.format(item))
             else:
                 print('not found: {!r}'.format(item))
-
-    # After implementing delete
-    delete_implemented = False
-    if delete_implemented:
-        for item in ['B','C','A']:
-            print('delete({!r})'.format(item))
-            ll.delete(item)
-            #     print('deleted: {!r}'.format(item))
-            # else:
-            #     print('could not delete: {!r}'.format(item))
-            print('list: {}'.format(ll))
-            print('tail: {}'.format(ll.tail))
+    #
+    # # After implementing delete
+    # delete_implemented = False
+    # if delete_implemented:
+    #     for item in ['B','C','A']:
+    #         print('delete({!r})'.format(item))
+    #         ll.delete(item)
+    #         #     print('deleted: {!r}'.format(item))
+    #         # else:
+    #         #     print('could not delete: {!r}'.format(item))
+    #         print('list: {}'.format(ll))
+    #         print('tail: {}'.format(ll.tail))
 
 if __name__ == '__main__':
+    # print "Nothing here to see"
     test_linked_list()
