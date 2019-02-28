@@ -110,9 +110,8 @@ class HashTable(object):
 
         if entry: #found
             return entry[1]
-
         else:
-            KeyError('Key not found: {}'.format(key))
+            raise KeyError('Key not found: {}'.format(key))
         # if self.buckets is not None:
         #     for bucket in self.buckets:
         #         for temp_key, value in bucket.items():
@@ -177,7 +176,7 @@ class HashTable(object):
             bucket.delete(entry)
             self.size -= 1
         else:
-            KeyError('Key not found: {}'.format(key))
+            raise KeyError('Key not found: {}'.format(key))
 
 def test_hash_table():
     ht = HashTable()
