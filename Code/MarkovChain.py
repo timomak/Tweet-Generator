@@ -133,8 +133,7 @@ def word_selection(dictionary):
     cumulative_prob = 0.0
 
     for item in dictionary:
-        for dict in item:
-            total_sum += dictionary[item][dict]
+        total_sum += dictionary[item]
 
     random_num = random.uniform(0, 1)
     for value in dictionary:
@@ -143,6 +142,28 @@ def word_selection(dictionary):
             return value
 
 
+
+
+# def word_selection_2nd(dictionary):
+#     """
+#     Pick the next word from the dictionary it recieves.
+#     """
+#     print dictionary
+#     total_sum = 0 # {'two': 4, 'red': 4} total_sum == 8
+#     cumulative_prob = 0.0
+#
+#     for item in dictionary:
+#         for dict in dictionary[item]:
+#             total_sum += dictionary[item][dict]
+#
+#     # print total_sum
+#     random_num = random.uniform(0, 1)
+#     for key_value in dictionary:
+#         for value in dictionary[key_value]:
+#             cumulative_prob += float(dictionary[key_value][value]) / float(total_sum)
+#             if cumulative_prob >= random_num:
+#                 return value
+
 # print generate_sentence()
 # print word_selection()
-print word_selection(makeSecondOrderMarkovDict("txt.txt"))
+print makeSecondOrderMarkovDict("txt.txt")
