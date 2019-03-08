@@ -16,7 +16,7 @@ def load(text):
 
    # wordlist = [word for word in words.split()]
    for word in words.split():
-       if len(wordlist) < 1001: # 50001
+       if len(wordlist) < 50001: # 50001
            wordlist.append(word)
    file.close()
    print "the lenght of list is:", len(wordlist)
@@ -87,8 +87,12 @@ def makeSecondOrderMarkovDict(text_file):
                 # print "Creating ", word, "to", markov[tempTuple],"\n"
 
 
-    return markov # Returns {'fish': {'two': 1, 'red': 1}, 'two': {'fish': 1}, 'red': {'fish': 1}, 'one': {'fish': 1}}
-
+    return markov
+    """ Returns
+    {('dogs.', 'You'): {'like': 1}, ('I', 'hate'): {}, ('dogs', 'and'): {'I': 1}, ('like', 'cats'): {'but': 1}, ('You', 'like'):
+    {'cats': 1, 'dogs': 1}, ('cats', 'but'): {'I': 1}, ('like', 'dogs.'): {'You': 1}, ('but', 'I'): {'hate': 1}, ('and', 'I'):
+    {'like': 1}, ('I', 'like'): {'dogs.': 1}, ('like', 'dogs'): {'and': 1}}
+    """
 
 def generate_sentence():
     """
