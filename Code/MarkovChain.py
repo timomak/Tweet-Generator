@@ -10,11 +10,16 @@ def load(text):
    # Converts file to string of lower case words
    words = file.read()
    # Replaces punctuation with nothing
-   words = words.replace(string.punctuation, "").replace(",", "").replace(".", "").replace("\"", "").replace("?", "").replace("!", "")
-
+   # words = words.replace(string.punctuation, "").replace(",", "").replace(".", "").replace("\"", "").replace("?", "").replace("!", "")
+   wordlist = []
    # Creates list of words from string
-   wordlist = [word for word in words.split()]
+
+   # wordlist = [word for word in words.split()]
+   for word in words.split():
+       if len(wordlist) < 1001: # 50001
+           wordlist.append(word)
    file.close()
+   print "the lenght of list is:", len(wordlist)
    return wordlist
 
 
@@ -48,6 +53,42 @@ def makeMarkovDict(text_file):
                 markov[word][following_word] = 1
             index += 1
     return markov # Returns {'fish': {'two': 1, 'red': 1}, 'two': {'fish': 1}, 'red': {'fish': 1}, 'one': {'fish': 1}}
+
+def makeSecondOrderMarkovDict(text_file):
+    markov = {}
+    words_list = load(text_file)
+
+    count = 0
+    """ Creating a markov first layer """
+    for word in words_list:
+        if len(words_list) > count + 2:
+            count += 1
+            tempTuple = (word, words_list[count])
+            if tempTuple not in markov.keys():
+                markov[tempTuple] = {}
+    # print "finished first layer"
+
+    # print markov # So far prints: {'fish': {}, 'two': {}, 'red': {}, 'one': {}}
+
+    index = 0 # Needs to always be 1 ahead of where word is in list
+    """ Creating a markov first layer """
+    for word in words_list:
+        # print index
+        if len(words_list) > index + 3:
+            index += 1
+            tempTuple = (word, words_list[index])
+            next_word = words_list[index + 1]
+            # print next_word
+            if next_word in markov[tempTuple].keys():
+                markov[tempTuple][next_word] += 1
+                # print "Adding ", word, "to", markov[tempTuple],"\n"
+            else:
+                markov[tempTuple][next_word] = 1
+                # print "Creating ", word, "to", markov[tempTuple],"\n"
+
+
+    return markov # Returns {'fish': {'two': 1, 'red': 1}, 'two': {'fish': 1}, 'red': {'fish': 1}, 'one': {'fish': 1}}
+
 
 def generate_sentence():
     """
@@ -92,7 +133,8 @@ def word_selection(dictionary):
     cumulative_prob = 0.0
 
     for item in dictionary:
-        total_sum += dictionary[item]
+        for dict in item:
+            total_sum += dictionary[item][dict]
 
     random_num = random.uniform(0, 1)
     for value in dictionary:
@@ -101,5 +143,6 @@ def word_selection(dictionary):
             return value
 
 
-print generate_sentence()
+# print generate_sentence()
 # print word_selection()
+print word_selection(makeSecondOrderMarkovDict("txt.txt"))

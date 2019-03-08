@@ -59,6 +59,8 @@ class HashTable(object):
     def length(self):
         """Return the number of key-value entries by traversing its buckets.
         TODO: Running time: O(???) Why and under what conditions?"""
+
+        """O(1)"""
         # TODO: Loop through all buckets
         # TODO: Count number of key-value entries in each bucket
         # count = 0
@@ -74,7 +76,7 @@ class HashTable(object):
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Find bucket where given key belongs
         # TODO: Check if key-value entry exists in bucket
-
+        """Best case O(1) if it's the first item in the bucket list. Otherwise O(l) (find)"""
         # for bucket in self.buckets:
         #     for temp_key, value in bucket.items():
         #         if temp_key is key:
@@ -158,20 +160,8 @@ class HashTable(object):
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
         TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Find bucket where given key belongs
-        # TODO: Check if key-value entry exists in bucket
-        # TODO: If found, delete entry associated with given key
-        # TODO: Otherwise, raise error to tell user delete failed
-        # Hint: raise KeyError('Key not found: {}'.format(key))
-        # if self.contains(key=key) == True:
-        #     count = 0
-        #     for bucket in self.buckets:
-        #         for temp_key, value in bucket.items():
-        #             if temp_key == key:
-        #                 self.buckets.pop(count)
-        #         count += 1
-        # else:
-        #     KeyError('Key not found: {}'.format(key))
+
+        """Best case O(1) if it's the first item in the bucket list. Otherwise O(l) (find) + O(l) (delete)"""
         index = self._bucket_index(key)
         bucket = self.buckets[index]
 
